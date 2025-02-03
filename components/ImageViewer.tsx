@@ -15,5 +15,5 @@ const styles = StyleSheet.create({
 });
 
 export default function ImageViewer({ imgSource }: Props) {
-  return <Image source={imgSource} style={}></Image>;
+  return <Image source={imgSource} style={styles.image}></Image>;
 }
