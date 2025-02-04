@@ -22,8 +22,11 @@ const styles = StyleSheet.create({
     flex: 1 / 3,
     alignItems: "center",
   },
-  optionsContainer: {},
-  optionsRow: {},
+  optionsContainer: {
+    position: "absolute",
+    bottom: 80,
+  },
+  optionsRow: { alignItems: "center", flexDirection: "row" },
 });
 
 export default function Index() {
