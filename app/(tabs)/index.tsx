@@ -5,6 +5,10 @@ import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
 import IconButton from "@/components/IconButton";
 import CircleButton from "@/components/CircleButton";
+import EmojiPicker from "@/components/EmojiPicker";
+import EmojiList from "@/components/EmojiList";
+import { ImageSource } from "expo-image";
+import EmojiSticker from "@/components/EmojiSticker";
 
 const placeHolderImage = require("@/assets/images/background-image.png");
 
@@ -37,14 +41,23 @@ export default function Index() {
     undefined
   );
   const [showAppOptions, setShowAppOptions] = useState<boolean>(false);
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [pickedEmoji, setPickedEmoji] = useState<ImageSource | undefined>(
+    undefined
+  );
 
   const onReset = () => {
     setShowAppOptions(false);
     setSelectedImage(undefined);
   };
   const onAddSticker = () => {
-    //add sticker
+    setIsModalVisible(true);
   };
+
+  const onModalClose = () => {
+    setIsModalVisible(false);
+  };
+
   const onSaveImageAsync = async () => {
     //implementLater
   };
@@ -72,6 +85,9 @@ export default function Index() {
           imgSource={placeHolderImage}
           selectedImage={selectedImage}
         />
+        {pickedEmoji && (
+          <EmojiSticker imageSize={40} stickerSource={pickedEmoji} />
+        )}
       </View>
       {showAppOptions ? (
         <View style={styles.optionsContainer}>
@@ -98,6 +114,10 @@ export default function Index() {
           />
         </View>
       )}
+      <EmojiPicker isVisible={isModalVisible} onClose={onModalClose}>
+        {/* Inside the model, sticker list */}
+        <EmojiList onSelect={setPickedEmoji} onCloseModal={onModalClose} />
+      </EmojiPicker>
     </View>
   );
 }
