@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "StickerSmash",
-    "slug": "StickerSmash",
+    "name": "Smash Your Waifu Stickers!",
+    "slug": "SmashYourWaifuStickers",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -9,9 +9,12 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "ccom.smashyour.waifustickers"
     },
     "android": {
+      "package": "com.smashyour.waifusticker",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -36,6 +39,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "7c5197d0-3af5-4748-85eb-3709c8adab90"
+      }
     }
   }
 }
