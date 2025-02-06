@@ -14,6 +14,8 @@ type Props = {
 
 export default function EmojiSticker({ imageSize, stickerSource }: Props) {
   const scaleImage = useSharedValue(imageSize); //  scaling on sticker
+  const translateX = useSharedValue(0); // for pan gesture
+  const translateY = useSharedValue(0); // for pan gesture
   const doubleTap = Gesture.Tap()
     .numberOfTaps(2)
     .onStart(() => {
@@ -24,6 +26,23 @@ export default function EmojiSticker({ imageSize, stickerSource }: Props) {
         scaleImage.value = Math.round(scaleImage.value / 2);
       }
     });
+  const drag = Gesture.Pan().onChange((event) => {
+    translateX.value += event.changeX;
+    translateY.value += event.changeY;
+  });
+  const containerStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          translateX: translateX.value,
+        },
+        {
+          translateY: translateY.value,
+        },
+      ],
+    };
+  });
+  // useAnimatedStyle hook is based on Animated.xxx style
   const imageStyle = useAnimatedStyle(() => {
     return {
       // withSpring got spring-based animation transition
@@ -31,18 +50,21 @@ export default function EmojiSticker({ imageSize, stickerSource }: Props) {
       height: withSpring(scaleImage.value),
     };
   });
+
   return (
-    //temporaily put the sticker image on -350px of the selected image
-    <View style={{ top: -350 }}>
-      <GestureDetector gesture={doubleTap}>
-        {/* Animated component loopks at style prop to apply updates for animation */}
-        {/* [] allow overidding */}
-        <Animated.Image
-          source={stickerSource}
-          resizeMode={"contain"}
-          style={[imageStyle, { width: imageSize, height: imageSize }]}
-        />
-      </GestureDetector>
-    </View>
+    <GestureDetector gesture={drag}>
+      {/* temporaily put the sticker image on -350px of the selected image */}
+      <Animated.View style={[{ top: -350 }, containerStyle]}>
+        <GestureDetector gesture={doubleTap}>
+          {/* Animated component loopks at style prop to apply updates for animation */}
+          {/* [] allow overidding */}
+          <Animated.Image
+            source={stickerSource}
+            resizeMode={"contain"}
+            style={[{ width: imageSize, height: imageSize }, imageStyle]}
+          />
+        </GestureDetector>
+      </Animated.View>
+    </GestureDetector>
   );
 }
