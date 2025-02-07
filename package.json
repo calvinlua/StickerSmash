@@ -11,6 +11,13 @@
     "test": "jest --watchAll",
     "lint": "expo lint"
   },
+  "expo":{
+    "doctor": {
+      "reactNativeDirectoryCheck": {
+        "listUnknownPackages": false
+      }
+    }
+  },
   "jest": {
     "preset": "jest-expo"
   },
