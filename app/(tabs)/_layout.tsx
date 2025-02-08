@@ -1,5 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
+import { Platform } from "react-native";
 import {
   BannerAd,
   BannerAdSize,
@@ -49,16 +50,18 @@ export default function TabLayout() {
           }}
         />
       </Tabs>
-      <BannerAd
-        unitId={TestIds.BANNER}
-        size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-        requestOptions={{
-          requestNonPersonalizedAdsOnly: true,
-          networkExtras: {
-            collapsible: "bottom",
-          },
-        }}
-      />
+      {Platform.OS !== "web" && (
+        <BannerAd
+          unitId={TestIds.BANNER}
+          size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+          requestOptions={{
+            requestNonPersonalizedAdsOnly: true,
+            networkExtras: {
+              collapsible: "bottom",
+            },
+          }}
+        />
+      )}
     </>
   );
 }
