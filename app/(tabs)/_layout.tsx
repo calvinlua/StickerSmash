@@ -52,7 +52,7 @@ export default function TabLayout() {
       </Tabs>
       {Platform.OS !== "web" && (
         <BannerAd
-          unitId={TestIds.BANNER}
+          unitId={"ca-app-pub-7352575842895579/8518068129"}
           size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
           requestOptions={{
             requestNonPersonalizedAdsOnly: true,
